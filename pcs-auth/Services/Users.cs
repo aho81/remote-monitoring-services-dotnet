@@ -52,6 +52,11 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
                 .Where(k => data.ContainsKey(k))
                 .Aggregate("", (current, k) => current + (data[k] + ' '))
                 .TrimEnd();
+            var roles = this.config.JwtRolesFrom
+                .Select(key => key.ToLowerInvariant())
+                .Where(k => data.ContainsKey(k))
+                .Aggregate("", (current, k) => current + (data[k] + ' '))
+                .TrimEnd();
 
             if (string.IsNullOrEmpty(id)) id = "-unknown-";
             if (string.IsNullOrEmpty(name)) name = "user name unknown";

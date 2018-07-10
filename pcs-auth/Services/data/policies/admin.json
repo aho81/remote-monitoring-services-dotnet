@@ -1,0 +1,13 @@
+﻿{
+    "Id": "a400a00b-f67c-42b7-ba9a-f73d8c67e433",
+    "Role": "admin",
+    "AllowedActions": [
+        "CreateDevices",
+        "DeleteDevices",
+        "UpdateDevices",
+        "CreateRules",
+        "UpdateRules",
+        "UpdateAlarms",
+        "CreateJob"
+    ]
+}
