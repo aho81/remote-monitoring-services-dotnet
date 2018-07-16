@@ -18,13 +18,16 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
     {
         private readonly ILogger log;
         private readonly IServicesConfig config;
+        private readonly IPolicies policies;
 
         public Users(
             IServicesConfig config,
-            ILogger log)
+            ILogger log,
+            IPolicies policies)
         {
             this.config = config;
             this.log = log;
+            this.policies = policies;
         }
 
         public User GetUserInfo(IEnumerable<Claim> claims)
@@ -52,22 +55,32 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
                 .Where(k => data.ContainsKey(k))
                 .Aggregate("", (current, k) => current + (data[k] + ' '))
                 .TrimEnd();
-            var roles = this.config.JwtRolesFrom
+            var role = this.config.JwtRolesFrom
                 .Select(key => key.ToLowerInvariant())
                 .Where(k => data.ContainsKey(k))
                 .Aggregate("", (current, k) => current + (data[k] + ' '))
                 .TrimEnd();
 
+            // Get allowed actions based on policy
+            var allowedActions = this.GetAllowedActions(role);
+
             if (string.IsNullOrEmpty(id)) id = "-unknown-";
             if (string.IsNullOrEmpty(name)) name = "user name unknown";
-            if (string.IsNullOrEmpty(email)) email = "email address unknown";
+            if (string.IsNullOrEmpty(email)) email = "email address unknown";         
 
             return new User
             {
                 Id = id,
                 Name = name,
-                Email = email
+                Email = email,
+                AllowedActions = allowedActions
             };
+        }
+
+        private List<string> GetAllowedActions(string role)
+        {
+            var policy = this.policies.GetByRole(role);
+            return policy.AllowedActions;
         }
     }
 }
