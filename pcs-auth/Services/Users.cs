@@ -36,7 +36,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
         public User GetUserInfo(IEnumerable<Claim> claims)
         {
             // Map all the claims into a dictionary
-            var data = new Dictionary<string,string>();
+            var data = new Dictionary<string, string>();
             var roles = new List<string>();
 
             foreach (var c in claims)
@@ -72,7 +72,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
 
             if (string.IsNullOrEmpty(id)) id = "-unknown-";
             if (string.IsNullOrEmpty(name)) name = "user name unknown";
-            if (string.IsNullOrEmpty(email)) email = "email address unknown";         
+            if (string.IsNullOrEmpty(email)) email = "email address unknown";
 
             return new User
             {
