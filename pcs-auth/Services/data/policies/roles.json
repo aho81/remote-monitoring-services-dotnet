@@ -4,13 +4,19 @@
             "Id": "a400a00b-f67c-42b7-ba9a-f73d8c67e433",
             "Role": "admin",
             "AllowedActions": [
+                "DeleteAlarms",
+                "UpdateAlarms",
                 "CreateDevices",
                 "DeleteDevices",
                 "UpdateDevices",
+                "CreateDeviceGroups",
+                "DeleteDeviceGroups",
+                "UpdateDeviceGroups",
                 "CreateRules",
                 "UpdateRules",
-                "UpdateAlarms",
-                "CreateJob"
+                "DeleteRules",
+                "CreateJobs",
+                "UpdateSimManagement"
             ]
         },
         {

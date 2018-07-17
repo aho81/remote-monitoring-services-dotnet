@@ -40,23 +40,20 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
 
         public IEnumerable<Policy> GetList()
         {
-            if (this.policies != null) return this.policies;
+            if (this.policies != null)
+            {
+                return this.policies;
+            }
 
+            // Retrieve policies if policy list is null
             this.policies = new List<Policy>();
-
             try
             {
                 var files = this.GetPolicyFiles();
                 foreach (var f in files)
                 {
-                    // Deserialize the list of policies
-                    var policyList = new
-                    {
-                        Items = new List<Policy>()
-                    };
-
-                    policyList = JsonConvert.DeserializeAnonymousType(File.ReadAllText(f), policyList);
-
+                    // Deserialize the list of policies and add to list
+                    var policyList = JsonConvert.DeserializeObject<PolicyList>(File.ReadAllText(f));
                     this.policies.AddRange(policyList.Items);
                 }
             }
@@ -75,21 +72,24 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
             var list = this.GetList();
             var item = list.FirstOrDefault(i => i.Role.Equals(role, StringComparison.OrdinalIgnoreCase));
 
-            if (item != null) return item;
+            if (item != null)
+            {
+                return item;
+            }
 
             throw new ResourceNotFoundException();
         }
 
         private List<string> GetPolicyFiles()
         {
-            if (this.policyFiles != null) return this.policyFiles;
+            if (this.policyFiles != null)
+            {
+                return this.policyFiles;
+            }
 
             this.log.Debug("Policies folder", () => new { this.config.PoliciesFolder });
-
             var fileEntries = Directory.GetFiles(this.config.PoliciesFolder);
-
             this.policyFiles = fileEntries.Where(fileName => fileName.EndsWith(EXT)).ToList();
-
             this.log.Debug("Policy files", () => new { this.policyFiles });
 
             return this.policyFiles;
