@@ -10,7 +10,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services.Runtime
         IEnumerable<string> JwtUserIdFrom { get; set; }
         IEnumerable<string> JwtNameFrom { get; set; }
         IEnumerable<string> JwtEmailFrom { get; set; }
-        IEnumerable<string> JwtRolesFrom { get; set; }
+        string JwtRolesFrom { get; set; }
         string PoliciesFolder { get; }
     }
 
@@ -21,7 +21,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services.Runtime
         public IEnumerable<string> JwtUserIdFrom { get; set; }
         public IEnumerable<string> JwtNameFrom { get; set; }
         public IEnumerable<string> JwtEmailFrom { get; set; }
-        public IEnumerable<string> JwtRolesFrom { get; set; }
+        public string JwtRolesFrom { get; set; }
 
         public ServicesConfig()
         {

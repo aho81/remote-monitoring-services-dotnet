@@ -51,10 +51,10 @@ namespace Microsoft.Azure.IoTSolutions.Auth.WebService.Runtime
 
             this.ServicesConfig = new ServicesConfig
             {
-                JwtUserIdFrom = configData.GetString(JWT_USER_ID_FROM_KEY, "email").Split(','),
-                JwtNameFrom = configData.GetString(JWT_NAME_FROM_KEY, "email").Split(','),
+                JwtUserIdFrom = configData.GetString(JWT_USER_ID_FROM_KEY, "oid").Split(','),
+                JwtNameFrom = configData.GetString(JWT_NAME_FROM_KEY, "given_name,family_name").Split(','),
                 JwtEmailFrom = configData.GetString(JWT_EMAIL_FROM_KEY, "email").Split(','),
-                JwtRolesFrom = configData.GetString(JWT_ROLES_FROM_KEY, "email").Split(','),
+                JwtRolesFrom = configData.GetString(JWT_ROLES_FROM_KEY, "roles"),
                 PoliciesFolder = MapRelativePath(configData.GetString(POLICIES_FOLDER_KEY))
             };
 
