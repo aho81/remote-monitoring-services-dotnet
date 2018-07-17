@@ -37,21 +37,12 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
         {
             // Map all the claims into a dictionary
             var data = new Dictionary<string, string>();
-            var roles = new List<string>();
 
             foreach (var c in claims)
             {
                 data[c.Type.ToLowerInvariant()] = c.Value;
             }
 
-            foreach (var c in claims)
-            {
-                // There can be multiple roles, add all roles to an array
-                if (string.Equals(c.Type.ToLowerInvariant(), this.rolesKey, StringComparison.OrdinalIgnoreCase))
-                {
-                    roles.Add(c.Value);
-                }
-            }
 
             // Extract user information from the claims
             var id = this.config.JwtUserIdFrom
@@ -69,6 +60,11 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
                 .Where(k => data.ContainsKey(k))
                 .Aggregate("", (current, k) => current + ((string)data[k] + ' '))
                 .TrimEnd();
+
+            // Extract roles array from claims
+            var roles = (from c in claims
+                         where string.Equals(c.Type.ToLowerInvariant(), this.rolesKey, StringComparison.OrdinalIgnoreCase)
+                         select c.Value).ToList();
 
             // Get allowed actions based on policy
             var allowedActions = this.GetAllowedActions(roles);
@@ -88,7 +84,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
 
         private List<string> GetAllowedActions(List<string> roles)
         {
-            List<string> allowedActions = new List<string>();
+            var allowedActions = new List<string>();
             foreach (var role in roles)
             {
                 var policy = this.policies.GetByRole(role);
