@@ -42,7 +42,10 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
             foreach (var c in claims)
             {
                 data[c.Type.ToLowerInvariant()] = c.Value;
+            }
 
+            foreach (var c in claims)
+            {
                 // There can be multiple roles, add all roles to an array
                 if (string.Equals(c.Type.ToLowerInvariant(), this.rolesKey, StringComparison.OrdinalIgnoreCase))
                 {
