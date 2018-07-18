@@ -40,7 +40,7 @@ Role Policy Example:
 
 | Field    | Type      | Example     | Description | 
 |---------|-----------|-------------|-------------|
-| Id      | string    | desc        | The Id is the unique identifier that aligns with the Id in the AAD application manifest. |
+| Id      | string    | a400a00b-f67c-42b7-ba9a-f73d8c67e433 | The Id is the unique identifier that aligns with the Id in the AAD application manifest. |
 | Role    | string    | Admin       | The name of the role type for the policy that aligns with the role specified in the AAD application manifest. |
 | AllowedActions | string[] | `[ "DeleteAlarms,"UpdateAlarms" ]`| A list of action types that specified the management operations that a user is allowed to perform as part of the role policy. |
 
