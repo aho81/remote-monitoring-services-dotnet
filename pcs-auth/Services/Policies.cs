@@ -59,7 +59,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
             }
             catch (Exception e)
             {
-                this.log.Error("Unable to load policy files.", () => new { e.Message, Exception = e });
+                this.log.Error("Unable to load policy file configuration.", () => new { e.Message, Exception = e });
 
                 throw new InvalidConfigurationException("Unable to load policy file configuration: " + e.Message, e);
             }
@@ -77,7 +77,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
                 return item;
             }
 
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("No policy configured for a role by the name of '" + role + "'.");
         }
 
         private List<string> GetPolicyFiles()

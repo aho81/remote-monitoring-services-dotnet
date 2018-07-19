@@ -77,8 +77,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.WebService.Runtime
 
         private static string MapRelativePath(string path)
         {
-            if (path.StartsWith(".")) return AppContext.BaseDirectory + Path.DirectorySeparatorChar + path;
-            return path;
+            return path.StartsWith(".") ? Path.Combine(AppContext.BaseDirectory, path) : path;
         }
     }
 }
