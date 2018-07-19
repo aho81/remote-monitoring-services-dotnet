@@ -44,6 +44,6 @@ Role Policy Example:
 | Role    | string    | Admin       | The name of the role type for the policy that aligns with the role specified in the AAD application manifest. |
 | AllowedActions | string[] | `[ "DeleteAlarms,"UpdateAlarms" ]`| A list of action types that specified the management operations that a user is allowed to perform as part of the role policy. |
 
-*Note:* The `Id` and `Role` must match the Role and Id in the AAD application manifest:
+*Note:* The `Id` and `Role` must match the Id and Role in the AAD application manifest:
 
 ![image](https://user-images.githubusercontent.com/3317135/42849965-664520e0-89da-11e8-8900-398da4ce8c39.png)
