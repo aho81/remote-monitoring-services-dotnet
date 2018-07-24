@@ -13,6 +13,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
     public interface IUsers
     {
         User GetUserInfo(IEnumerable<Claim> claims);
+        IEnumerable<string> GetAllowedActions(IEnumerable<string> roles);
     }
 
     public class Users : IUsers
@@ -78,17 +79,17 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
                 Id = id,
                 Name = name,
                 Email = email,
-                AllowedActions = allowedActions
+                AllowedActions = allowedActions.ToList()
             };
         }
 
-        private List<string> GetAllowedActions(List<string> roles)
+        public IEnumerable<string> GetAllowedActions(IEnumerable<string> roles)
         {
-            var allowedActions = new List<string>();
+            var allowedActions = new HashSet<string>();
             foreach (var role in roles)
             {
                 var policy = this.policies.GetByRole(role);
-                allowedActions.AddRange(policy.AllowedActions);
+                allowedActions.UnionWith(policy.AllowedActions);
             }
 
             return allowedActions;

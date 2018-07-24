@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.IoTSolutions.Auth.Services;
 using Microsoft.Azure.IoTSolutions.Auth.WebService.Auth;
@@ -26,6 +27,18 @@ namespace Microsoft.Azure.IoTSolutions.Auth.WebService.v1.Controllers
             if (id != "current" && id != user.Id) return null;
 
             return new UserApiModel(user);
+        }
+
+        /// <summary>
+        /// This action is used by other services to get allowed action based on
+        /// roles extracted from JWT token but not requiring to pass the token.
+        /// </summary>
+        /// <param name="roles">a list of role names</param>
+        /// <returns>a list of allowed actions</returns>
+        [HttpPost("roles!allowedActions")]
+        public IEnumerable<string> GetAllowedActions([FromBody]IEnumerable<string> roles)
+        {
+            return this.users.GetAllowedActions(roles);
         }
     }
 }
