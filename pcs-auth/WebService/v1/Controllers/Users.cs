@@ -31,12 +31,13 @@ namespace Microsoft.Azure.IoTSolutions.Auth.WebService.v1.Controllers
 
         /// <summary>
         /// This action is used by other services to get allowed action based on
-        /// roles extracted from JWT token but not requiring to pass the token.
+        /// user roles extracted from JWT token but not requiring to pass the token.
         /// </summary>
+        /// <param name="id">user object id</param>
         /// <param name="roles">a list of role names</param>
         /// <returns>a list of allowed actions</returns>
-        [HttpPost("roles!allowedActions")]
-        public IEnumerable<string> GetAllowedActions([FromBody]IEnumerable<string> roles)
+        [HttpPost("{id}/allowedActions")]
+        public IEnumerable<string> GetAllowedActions(string id, [FromBody]IEnumerable<string> roles)
         {
             return this.users.GetAllowedActions(roles);
         }
