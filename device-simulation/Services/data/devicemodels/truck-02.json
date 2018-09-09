@@ -8,8 +8,9 @@
     "Simulation": {
         "InitialState": {
             "online": true,
-            "latitude": 47.25433,
-            "longitude": -121.177075,
+            "altitude": 83.0,
+            "latitude": 47.5006616,
+            "longitude": -122.1859029,
             "speed": 30.0,
             "speed_unit": "mph",
             "temperature": 49.0,
@@ -32,11 +33,12 @@
     "Telemetry": [
         {
             "Interval": "00:00:10",
-            "MessageTemplate": "{\"latitude\":${latitude},\"longitude\":${longitude},\"speed\": ${speed},\"speed_unit\":\"${speed_unit}\",\"temperature\":${temperature},\"temperature_unit\":\"${temperature_unit}\"}",
+            "MessageTemplate": "{\"altitude\":${altitude},\"latitude\":${latitude},\"longitude\":${longitude},\"speed\": ${speed},\"speed_unit\":\"${speed_unit}\",\"temperature\":${temperature},\"temperature_unit\":\"${temperature_unit}\"}",
             "MessageSchema": {
                 "Name": "truck-sensors;v1",
                 "Format": "JSON",
                 "Fields": {
+                    "altitude": "double",
                     "latitude": "double",
                     "longitude": "double",
                     "speed": "double",
