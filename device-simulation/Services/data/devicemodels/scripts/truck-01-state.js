@@ -91,19 +91,22 @@ var data = [
 ];
 
 /**
- * Method used by findIndex to locate the index of the current
- * location by latitude
+ * Locate the index of the current data point.
  */
-function findLatitude(location) {
-    return location[0] === properties.latitude;
+function findCurrentDataIndex() {
+    var i;
+    for (i = 0; i < data.length; i++) {
+        if (data[i][0] === properties.latitude) return i;
+    }
+    return undefined;
 }
 
 /**
  * Returns the next data point in the predefined data set.
- * Loops if the end of the list has been reached.
+ * Loops back to start if the end of the list has been reached.
  */
 function getNextMessage() {
-    var index = data.findIndex(findLatitude);
+    var index = findCurrentDataIndex();
     if (index === data.length - 1) return data[0];
     return data[index + 1];
 }

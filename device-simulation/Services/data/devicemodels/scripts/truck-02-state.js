@@ -57,19 +57,6 @@ function vary(avg, percentage, min, max) {
     return value;
 }
 
-/**
- * Generate a random geolocation at some distance (in miles)
- * from a given location
- */
-function varylocation(latitude, longitude, distance) {
-    // Convert to meters, use Earth radius, convert to radians
-    var radians = (distance * 1609.344 / 6378137) * (180 / Math.PI);
-    return {
-        latitude: latitude + radians,
-        longitude: longitude + radians / Math.cos(latitude * Math.PI / 180)
-    };
-}
-
 // Demo loop of data for truck
 // latitude, longitude, altitude, temperature 
 var data = [
@@ -104,19 +91,22 @@ var data = [
 ];
 
 /**
- * Method used by findIndex to locate the index of the current
- * location by latitude
+ * Locate the index of the current data point.
  */
-function findLatitude(location) {
-    return location[0] === properties.latitude;
+function findCurrentDataIndex() {
+    var i;
+    for (i = 0; i < data.length; i++) {
+        if (data[i][0] === properties.latitude) return i;
+    }
+    return undefined;
 }
 
 /**
  * Returns the next data point in the predefined data set.
- * Loops if the end of the list has been reached.
+ * Loops back to start if the end of the list has been reached.
  */
 function getNextMessage() {
-    var index = data.findIndex(findLatitude);
+    var index = findCurrentDataIndex();
     if (index === data.length - 1) return data[0];
     return data[index + 1];
 }
