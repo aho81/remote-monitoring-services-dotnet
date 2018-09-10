@@ -21,8 +21,8 @@ var state = {
 
 // Default properties
 var properties = {
-    latitude: 47.5006616,
-    longitude: -122.1859029
+    Latitude: 47.5006616,
+    Longitude: -122.1859029
 };
 
 /**
@@ -96,8 +96,11 @@ var data = [
 function findCurrentDataIndex() {
     var i;
     for (i = 0; i < data.length; i++) {
-        if (data[i][0] === properties.latitude) return i;
+        if (data[i][0] === properties.Latitude) {
+            return i;
+        }
     }
+    log("Did not find data for " + properties.Latitude);
     return undefined;
 }
 
@@ -131,8 +134,8 @@ function main(context, previousState, previousProperties) {
     // Get the next data point in the demo loop
     // stored as an array of [latitude, longitude, altitude, temperature]
     var data = getNextMessage();
-    state.latitude = properties.latitude = data[0];
-    state.longitude = properties.longitude = data[1];
+    state.latitude = properties.Latitude = data[0];
+    state.longitude = properties.Longitude = data[1];
     state.altitude = data[2];
     state.temperature = data[3];
 
@@ -143,8 +146,8 @@ function main(context, previousState, previousProperties) {
     state.temperature = vary(state.temperature, 1, state.temperature - 15, state.temperature + 15);
 
     updateState(state);
-    updateProperty("latitude", state.latitude);
-    updateProperty("longitude", state.longitude);
+    updateProperty("Latitude", properties.Latitude);
+    updateProperty("Longitude", properties.Longitude);
 
     // Sleep so truck movement seems more realistic
     sleep(20000);
