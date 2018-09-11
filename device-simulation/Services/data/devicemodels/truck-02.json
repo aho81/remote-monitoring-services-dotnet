@@ -9,7 +9,7 @@
         "InitialState": {
             "online": true,
             "altitude": 83.0,
-            "latitude": 47.5006616,
+            "latitude": 47.50066160,
             "longitude": -122.1859029,
             "speed": 30.0,
             "speed_unit": "mph",
@@ -27,8 +27,8 @@
     "Properties": {
         "Type": "Truck",
         "Location": "Field",
-        "Latitude": 47.25433,
-        "Longitude": -121.177075
+        "Latitude": 47.50066160,
+        "Longitude": -122.1859029
     },
     "Telemetry": [
         {

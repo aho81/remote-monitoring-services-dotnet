@@ -8,7 +8,7 @@
     "Simulation": {
         "InitialState": {
             "online": true,
-            "altitude": 83.0, 
+            "altitude": 83.0,
             "latitude": 47.50066160,
             "longitude": -122.1859029,
             "speed": 30.0,

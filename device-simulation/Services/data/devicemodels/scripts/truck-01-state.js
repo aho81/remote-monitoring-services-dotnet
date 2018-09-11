@@ -97,11 +97,10 @@ var data = [
 function findCurrentDataIndex() {
     var i;
     for (i = 0; i < data.length; i++) {
-        if (data[i][0] === properties.Latitude) {
+        if (data[i][0] == properties.Latitude) {
             return i;
         }
     }
-    log("Did not find data for " + properties.Latitude);
     return undefined;
 }
 
@@ -146,9 +145,4 @@ function main(context, previousState, previousProperties) {
     updateState(state);
     updateProperty("Latitude", properties.Latitude);
     updateProperty("Longitude", properties.Longitude);
-
-    // Sleep so truck movement seems more realistic
-    log("Sleep 20000 for Truck-01");
-    sleep(20000);
-    log("Sleep for Truck-01 complete");
 }

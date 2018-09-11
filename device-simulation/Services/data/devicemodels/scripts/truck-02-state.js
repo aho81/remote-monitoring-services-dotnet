@@ -11,7 +11,7 @@
 var state = {
     online: true,
     altitude: 83.0,
-    latitude: 47.5006616,
+    latitude: 47.50066160,
     longitude: -122.1859029,
     speed: 80.0,
     speed_unit: "mph",
@@ -21,7 +21,7 @@ var state = {
 
 // Default properties
 var properties = {
-    Latitude: 47.5006616,
+    Latitude: 47.50066160,
     Longitude: -122.1859029
 };
 
@@ -39,6 +39,7 @@ function restoreSimulation(previousState, previousProperties) {
         log("Using default state");
     }
 
+    log("**** Seeing if there are default properties");
     if (previousProperties) {
         properties = previousProperties;
     } else {
@@ -96,11 +97,10 @@ var data = [
 function findCurrentDataIndex() {
     var i;
     for (i = 0; i < data.length; i++) {
-        if (data[i][0] === properties.Latitude) {
+        if (data[i][0] == properties.Latitude) {
             return i;
         }
     }
-    log("Did not find data for " + properties.Latitude);
     return undefined;
 }
 
@@ -134,10 +134,13 @@ function main(context, previousState, previousProperties) {
     // Get the next data point in the demo loop
     // stored as an array of [latitude, longitude, altitude, temperature]
     var data = getNextMessage();
-    state.latitude = properties.Latitude = data[0];
-    state.longitude = properties.Longitude = data[1];
+    state.latitude = data[0];
+    state.longitude = data[1];
     state.altitude = data[2];
     state.temperature = data[3];
+
+    properties.Latitude = data[0];
+    properties.Longitude = data[1];
 
     // 30 +/- 5%,  Min 0, Max 80
     state.speed = vary(30, 5, 0, 80);
@@ -148,7 +151,4 @@ function main(context, previousState, previousProperties) {
     updateState(state);
     updateProperty("Latitude", properties.Latitude);
     updateProperty("Longitude", properties.Longitude);
-
-    // Sleep so truck movement seems more realistic
-    sleep(20000);
 }
