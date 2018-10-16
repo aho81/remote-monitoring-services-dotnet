@@ -107,6 +107,9 @@ namespace Microsoft.Azure.IoTSolutions.Auth.WebService.Auth
             var header = string.Empty;
             var token = string.Empty;
 
+            // Store this setting to skip validating authorization in the controller if enabled
+            context.Request.SetAuthRequired(this.config.AuthRequired);
+
             if (!context.Request.Headers.ContainsKey(EXT_RESOURCES_HEADER))
             {
                 // This is a service to service request running in the private
@@ -120,6 +123,8 @@ namespace Microsoft.Azure.IoTSolutions.Auth.WebService.Auth
                 context.Request.SetExternalRequest(false);
                 return this.requestDelegate(context);
             }
+
+            context.Request.SetExternalRequest(true);
 
             if (!this.authRequired)
             {
