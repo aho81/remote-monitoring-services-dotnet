@@ -109,7 +109,7 @@ namespace Services.Test
             bool exceptionThrown)
         {
             // Arrange
-            string token = string.Empty;
+            AccessToken token = null;
             this.servicesConfig.SetupProperty(x => x.AadEndpointUrl, aadEndpointUrl);
             this.servicesConfig.SetupProperty(x => x.AadTenantId, aadTenantId);
             this.servicesConfig.SetupProperty(x => x.AadApplicationId, applicationId);
@@ -120,14 +120,14 @@ namespace Services.Test
             {
                 token = await this.users.GetToken(audience);
             }
-            catch(InvalidConfigurationException e)
+            catch (InvalidConfigurationException e)
             {
                 // Assert
                 Assert.True(exceptionThrown);
                 return;
             }
 
-            Assert.False(string.IsNullOrEmpty(token));
+            Assert.NotNull(token);
         }
 
         private List<Claim> GetClaimWithUserInfo()
@@ -177,7 +177,8 @@ namespace Services.Test
                 "UpdateRules",
                 "DeleteRules",
                 "CreateJobs",
-                "UpdateSimManagement"
+                "UpdateSimManagement",
+                "AcquireToken"
             };
 
             return new Policy()
@@ -200,7 +201,8 @@ namespace Services.Test
                 "CreateRules",
                 "UpdateRules",
                 "CreateJobs",
-                "UpdateSimManagement"
+                "UpdateSimManagement",
+                "AcquireToken"
             };
 
             return new Policy()

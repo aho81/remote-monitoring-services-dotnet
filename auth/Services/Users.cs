@@ -17,7 +17,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
     {
         User GetUserInfo(IEnumerable<Claim> claims);
         IEnumerable<string> GetAllowedActions(IEnumerable<string> roles);
-        Task<string> GetToken(string audience);
+        Task<AccessToken> GetToken(string audience);
     }
 
     public class Users : IUsers
@@ -101,7 +101,7 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
             return allowedActions.ToList();
         }
 
-        public async Task<string> GetToken(string audience)
+        public async Task<AccessToken> GetToken(string audience)
         {
             // if no audiene is provided, use Azure Resource Manager endpoint url by default
             audience = string.IsNullOrEmpty(audience) ? this.config.ArmEndpointUrl : audience;
@@ -123,12 +123,12 @@ namespace Microsoft.Azure.IoTSolutions.Auth.Services
             var authenticationContext = new AuthenticationContext(authorityUrl, TokenCache.DefaultShared);
             try
             {
-                AuthenticationResult tokenResponse = await authenticationContext.AcquireTokenAsync(
+                AuthenticationResult authenticationResult = await authenticationContext.AcquireTokenAsync(
                     resource: audience,
                     clientCredential: new ClientCredential(
                         clientId: this.config.AadApplicationId,
                         clientSecret: this.config.AadApplicationSecret));
-                return tokenResponse.AccessToken;
+                return new AccessToken(audience, authenticationResult);
             }
             catch (Exception e)
             {

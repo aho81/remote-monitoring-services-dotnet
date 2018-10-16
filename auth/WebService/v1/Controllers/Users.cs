@@ -50,11 +50,12 @@ namespace Microsoft.Azure.IoTSolutions.Auth.WebService.v1.Controllers
         /// <param name="id">user object id</param>
         /// <param name="audience">audience of the token, use ARM as default audience</param>
         /// <returns>token for the audience</returns>
-        [HttpGet("{id}/tokens")]
+        [HttpGet("{id}/token")]
         [Authorize("AcquireToken")]
-        public async Task<string> GetToken([FromRoute]string id, [FromQuery]string audience)
+        public async Task<TokenApiModel> GetToken([FromRoute]string id, [FromQuery]string audience)
         {
-            return await this.users.GetToken(audience);
+            var token = await this.users.GetToken(audience);
+            return new TokenApiModel(token);
         }
     }
 }
