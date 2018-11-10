@@ -43,7 +43,7 @@ namespace Services.Test
                 this.mockUserManagementClient.Object);
 
             this.logicAppTestConnectionUrl = $"{MOCK_ARM_ENDPOINT_URL}" +
-                                        $"/subscriptions/{MOCK_SUBSCRIPTION_ID}/" +
+                                        $"subscriptions/{MOCK_SUBSCRIPTION_ID}/" +
                                         $"resourceGroups/{MOCK_RESOURCE_GROUP}/" +
                                         "providers/Microsoft.Web/connections/" +
                                         "office365-connector/extensions/proxy/testconnection?" +

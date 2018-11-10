@@ -95,6 +95,10 @@ namespace Microsoft.Azure.IoTSolutions.UIConfig.Services.External
                     throw new NotAuthorizedException("The user or the application is not authorized to make the " +
                                                      $"request to the user management service, content = {response.Content}, " +
                                                      $"request URL = {request.Uri}");
+                case HttpStatusCode.Unauthorized:
+                    throw new NotAuthorizedException("The user or the application is not authorized to make the " +
+                                                     $"request to the user management service, content = {response.Content}, " +
+                                                     $"request URL = {request.Uri}");
                 default:
                     throw new HttpRequestException($"Http request failed, status code = {response.StatusCode}, " +
                                                    "content = {response.Content}, request URL = {request.Uri}");

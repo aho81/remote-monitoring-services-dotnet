@@ -42,7 +42,7 @@ namespace Microsoft.Azure.IoTSolutions.UIConfig.Services.External
             }
 
             var logicAppTestConnectionUri = this.config.ArmEndpointUrl +
-                                               $"/subscriptions/{this.config.SubscriptionId}/" +
+                                               $"subscriptions/{this.config.SubscriptionId}/" +
                                                $"resourceGroups/{this.config.ResourceGroup}/" +
                                                "providers/Microsoft.Web/connections/" +
                                                "office365-connector/extensions/proxy/testconnection?" +
@@ -52,7 +52,8 @@ namespace Microsoft.Azure.IoTSolutions.UIConfig.Services.External
 
             var response = await this.httpClient.GetAsync(request);
 
-            if (response.StatusCode == HttpStatusCode.Forbidden)
+            if (response.StatusCode == HttpStatusCode.Forbidden ||
+                response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 throw new NotAuthorizedException("The application is not authorized and has not been " +
                                                  "assigned contributor permissions for the subscription. Go to the Azure portal and " +
