@@ -71,7 +71,7 @@ services:
       - PCS_CORS_WHITELIST
       - PCS_APPLICATION_SECRET
 
-devicesimulation:
+  devicesimulation:
     image: azureiotpcs/device-simulation-dotnet:DS-2.0.2
     networks:
       - default_net
